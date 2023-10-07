@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import colors from 'tailwindcss/colors'
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 	modules: [
@@ -23,5 +24,5 @@ export default defineNuxtConfig({
 				{ rel: "preconnect", href: "https://rsms.me/" },
 			],
 		},
-    },
+	},
 });

@@ -3,7 +3,23 @@
 @tailwind utilities;
 
 @layer base {
+	:root {
+		--border: var(--color-gray-200);
+		--background: var(--color-white);
+		--foreground: var(--color-gray-700);
+	}
+
+	.dark {
+		--border: var(--color-gray-700);
+		--background: var(--color-gray-900);
+		--foreground: var(--color-gray-200);
+	}
+}
+@layer base {
+	* {
+		@apply border-border;
+	}
 	body {
-		box-sizing: border-box;
+		@apply bg-background text-foreground;
 	}
 }

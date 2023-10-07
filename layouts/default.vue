@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container px-4">
 		<top-bar @toggle-side-bar="toggleSideBar"></top-bar>
 		<main
 			class="container grid min-h-[calc(100vh-64px)] max-w-screen-xl grid-cols-10 gap-4"

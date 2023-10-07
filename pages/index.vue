@@ -5,11 +5,15 @@
 		<UButton
 			variant="ghost"
 			class="flex h-10 w-40 shrink-0 items-center justify-center rounded-full"
-			@click="toggleTheme"
+			@click="addItem"
 			><span>Add Item</span>
 			<Icon name="heroicons:plus-solid" />
 		</UButton>
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+const addItem = () => {
+	console.log("added!");
+};
+</script>

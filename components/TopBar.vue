@@ -1,49 +1,56 @@
 <template>
-	<header class="sticky top-0 z-20 h-16 bg-background/80 backdrop-blur">
+	<header class="bg-background/80 sticky top-0 z-20 h-16 backdrop-blur">
 		<!-- flex cotainer -->
-		<div
-			class="container flex h-16 max-w-screen-xl items-center justify-between border-b"
-		>
+		<div class="flex h-16 items-center justify-between border-b">
 			<!-- left side header -->
 			<div class="flex items-center gap-3">
-				<!-- logo -->
-				<img
-					src="/icon.svg"
-					alt="Analytics Logo"
-					class="h-10 w-10 object-contain"
-				/>
 				<!-- page title -->
-				<NuxtLink to="/" class="text-xl font-bold"
-					>Keen <span class="text-primary">Life</span></NuxtLink
-				>
+				<NuxtLink to="/" class="flex items-center gap-2">
+					<!-- logo -->
+					<svg
+						id="logo"
+						class="fill-primary h-8 w-8"
+						width="49"
+						height="48"
+						viewBox="0 0 49 48"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M24.5 12.75C24.5 18.9632 19.4632 24 13.25 24H2V12.75C2 6.53679 7.03679 1.5 13.25 1.5C19.4632 1.5 24.5 6.53679 24.5 12.75Z"
+						></path>
+						<path
+							d="M24.5 35.25C24.5 29.0368 29.5368 24 35.75 24H47V35.25C47 41.4632 41.9632 46.5 35.75 46.5C29.5368 46.5 24.5 41.4632 24.5 35.25Z"
+						></path>
+						<path
+							d="M2 35.25C2 41.4632 7.03679 46.5 13.25 46.5H24.5V35.25C24.5 29.0368 19.4632 24 13.25 24C7.03679 24 2 29.0368 2 35.25Z"
+						></path>
+						<path
+							d="M47 12.75C47 6.53679 41.9632 1.5 35.75 1.5H24.5V12.75C24.5 18.9632 29.5368 24 35.75 24C41.9632 24 47 18.9632 47 12.75Z"
+						></path>
+					</svg>
+					<span class="text-xl font-bold">
+						Keen <span class="text-primary">Life</span>
+					</span>
+				</NuxtLink>
 			</div>
 			<!-- right side header -->
-			<div class="flex items-center gap-5">
+			<div class="flex items-center gap-2">
 				<!-- color theme toggle -->
 				<UButton
+					class="flex lg:hidden"
+					icon="i-heroicons-bars-3-20-solid"
+					color="gray"
 					variant="ghost"
-					class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-					@click="toggleTheme"
-				>
-					<Icon
-						:name="
-							colorMode.value === 'light'
-								? 'heroicons:sun'
-								: 'heroicons:moon'
-						"
-					/>
-				</UButton>
-				<UButton
-					variant="ghost"
-					class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full lg:hidden"
+					square
+					aria-label="Menu"
 					@click="toggleSideBar"
-				>
-					<Icon name="heroicons:bars-4" />
-				</UButton>
+				/>
+				<ColorPicker />
+				<ColorMode />
 				<!-- profile dropdown menu -->
 				<HMenu as="div" class="relative">
 					<HMenuButton
-						class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border bg-background"
+						class="bg-background flex h-8 w-8 shrink-0 items-center justify-center rounded-full border"
 					>
 						<img
 							src="https://randomuser.me/api/portraits/med/men/75.jpg"
@@ -52,13 +59,13 @@
 						/>
 					</HMenuButton>
 					<HMenuItems
-						class="absolute right-0 z-10 mt-3 w-48 rounded-md border bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+						class="bg-background focus-visible:ring-ring absolute right-0 z-10 mt-3 w-48 rounded-md border focus:outline-none focus-visible:ring-2"
 					>
 						<div class="border-b px-3 py-1.5 text-sm">
 							<p class="font-semibold">Hello John</p>
 							<a
 								href="mailto:johndoe@test.com"
-								class="leading-none text-muted-foreground"
+								class="text-muted-foreground leading-none"
 								>johndoe@test.com</a
 							>
 						</div>
@@ -89,11 +96,6 @@
 </template>
 
 <script setup>
-const colorMode = useColorMode();
-const toggleTheme = () => {
-	colorMode.value = colorMode.value === "light" ? "dark" : "light";
-};
-
 const profileMenuOptions = [
 	{ title: "Profile" },
 	{ title: "Billing" },
