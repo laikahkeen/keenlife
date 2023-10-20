@@ -13,13 +13,7 @@
 			@click="isDark = !isDark"
 		/>
 		<template #fallback>
-			<UButton
-				aria-label="Loading"
-				loading
-				color="gray"
-				variant="ghost"
-				square
-			/>
+			<div class="h-8 w-8"></div>
 		</template>
 	</ClientOnly>
 </template>

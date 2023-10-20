@@ -4,20 +4,23 @@
 
 @layer base {
 	:root {
-		--border: var(--color-gray-200);
-		--background: var(--color-white);
+		--background: 255 255 255;
 		--foreground: var(--color-gray-700);
+		--border: var(--color-gray-200);
 	}
 
 	.dark {
-		--border: var(--color-gray-700);
 		--background: var(--color-gray-900);
 		--foreground: var(--color-gray-200);
+		--border: var(--color-gray-700);
 	}
 }
 @layer base {
+	html {
+		@apply scrollbar-thin scrollbar-thumb-border scrollbar-thumb-rounded;
+	}
 	* {
-		@apply border-border;
+		@apply border-border scrollbar-thin scrollbar-thumb-border scrollbar-thumb-rounded;
 	}
 	body {
 		@apply bg-background text-foreground;

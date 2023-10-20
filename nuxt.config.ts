@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import colors from 'tailwindcss/colors'
+import colors from "tailwindcss/colors";
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 	modules: [
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 		"@pinia-plugin-persistedstate/nuxt",
 		"nuxt-icon",
 		"nuxt-headlessui",
-		// "@nuxtjs/supabase",
+		"@nuxtjs/supabase",
 	],
 	headlessui: { prefix: "H" },
 	app: {
@@ -23,6 +23,14 @@ export default defineNuxtConfig({
 				{ rel: "stylesheet", href: "https://rsms.me/inter/inter.css" },
 				{ rel: "preconnect", href: "https://rsms.me/" },
 			],
+		},
+	},
+	supabase: {
+		redirect: false,
+		redirectOptions: {
+			login: "/auth/login",
+			callback: "/auth/confirm",
+			exclude: ["/auth", "/"],
 		},
 	},
 });

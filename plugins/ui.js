@@ -57,16 +57,6 @@ export default defineNuxtPlugin({
 						tagPriority: -1,
 					},
 				],
-				style: [
-					{
-						innerHTML: `:root {
-							--color-white: 255 255 255;
-							--color-black: 0 0 0;
-						}`,
-						id: "nuxt-ui-colors-2",
-						tagPriority: -3,
-					},
-				],
 			});
 		}
 	},

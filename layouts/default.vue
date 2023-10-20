@@ -1,26 +1,43 @@
 <template>
-	<div class="container px-4">
-		<top-bar @toggle-side-bar="toggleSideBar"></top-bar>
-		<main
-			class="container grid min-h-[calc(100vh-64px)] max-w-screen-xl grid-cols-10 gap-4"
-		>
-			<side-bar
-				class="hidden lg:sticky lg:top-[-64px] lg:col-span-2 lg:block lg:max-h-[calc(100vh-64px)]"
-				:is-side-bar-open="isSideBarOpen"
-			></side-bar>
-			<div class="col-span-10 w-full lg:col-span-6">
-				<slot></slot>
+	<header class="sticky top-0 z-40 h-16 border-b bg-background">
+		<div class="container flex h-full justify-between px-4">
+			<div class="flex items-center justify-between gap-3">
+				<NuxtLink to="/" class="flex items-center gap-2">
+					<svg
+						id="logo"
+						class="fill-primary h-8 w-8"
+						width="49"
+						height="48"
+						viewBox="0 0 49 48"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M24.5 12.75C24.5 18.9632 19.4632 24 13.25 24H2V12.75C2 6.53679 7.03679 1.5 13.25 1.5C19.4632 1.5 24.5 6.53679 24.5 12.75Z"
+						></path>
+						<path
+							d="M24.5 35.25C24.5 29.0368 29.5368 24 35.75 24H47V35.25C47 41.4632 41.9632 46.5 35.75 46.5C29.5368 46.5 24.5 41.4632 24.5 35.25Z"
+						></path>
+						<path
+							d="M2 35.25C2 41.4632 7.03679 46.5 13.25 46.5H24.5V35.25C24.5 29.0368 19.4632 24 13.25 24C7.03679 24 2 29.0368 2 35.25Z"
+						></path>
+						<path
+							d="M47 12.75C47 6.53679 41.9632 1.5 35.75 1.5H24.5V12.75C24.5 18.9632 29.5368 24 35.75 24C41.9632 24 47 18.9632 47 12.75Z"
+						></path>
+					</svg>
+					<span class="text-xl font-bold">
+						Keen <span class="text-primary">Life</span>
+					</span>
+				</NuxtLink>
 			</div>
-			<USlideover v-model="isSideBarOpen" side="left">
-				<side-bar></side-bar>
-			</USlideover>
-		</main>
-	</div>
+			<div class="flex items-center gap-2">
+				<ColorPicker />
+				<ColorMode />
+				<Navigation />
+				<Avatar />
+			</div>
+		</div>
+	</header>
+	<main class="container flex min-h-[calc(100vh-64px)] gap-4 px-4">
+		<slot></slot>
+	</main>
 </template>
-
-<script setup>
-const isSideBarOpen = ref(false);
-const toggleSideBar = () => {
-	isSideBarOpen.value = !isSideBarOpen.value;
-};
-</script>
