@@ -1,6 +1,6 @@
 <template>
 	<header class="sticky top-0 z-40 h-16 border-b bg-background">
-		<div class="container flex h-full justify-between px-4">
+		<div class="flex h-full justify-between px-4">
 			<div class="flex items-center justify-between gap-3">
 				<NuxtLink to="/" class="flex items-center gap-2">
 					<svg
@@ -37,7 +37,7 @@
 			</div>
 		</div>
 	</header>
-	<main class="container flex min-h-[calc(100vh-64px)] gap-4 px-4">
+	<main class="flex min-h-[calc(100vh-64px)] gap-4 px-4">
 		<slot></slot>
 	</main>
 </template>

@@ -12,17 +12,11 @@
 		<UCard
 			class="flex flex-1 flex-col"
 			:ui="{
-				divide: '',
-				header: {
-					padding: 'py-0',
-				},
-				body: {
-					padding: 'py-0 sm:py-0',
-				},
+				ring: '',
 			}"
 		>
 			<template #header>
-				<div class="flex h-16 items-center justify-between border-b">
+				<div class="flex items-center justify-between">
 					<h3 class="text-base font-semibold leading-6">Sidebar</h3>
 					<UButton
 						color="gray"

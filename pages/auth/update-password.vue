@@ -66,15 +66,15 @@
 </template>
 
 <script setup>
-import Joi from "joi";
+const toast = useToast();
+const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 
+import Joi from "joi";
 const schema = Joi.object({
 	password: Joi.string().min(8).required(),
 	confirmPassword: Joi.string().min(8).required(),
 });
-const toast = useToast();
-const supabase = useSupabaseClient();
-const user = useSupabaseUser();
 
 const state = ref({
 	password: undefined,

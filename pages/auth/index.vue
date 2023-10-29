@@ -105,16 +105,16 @@
 </template>
 
 <script setup>
-import Joi from "joi";
+const toast = useToast();
+const supabase = useSupabaseClient();
 
+import Joi from "joi";
 const schema = Joi.object({
 	email: Joi.string()
 		.email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
 		.required(),
 	password: Joi.string().min(8).required(),
 });
-
-const supabase = useSupabaseClient();
 
 const state = ref({
 	email: undefined,
@@ -123,8 +123,6 @@ const state = ref({
 
 const isSigningIn = ref(true);
 const isRevealed = ref(false);
-
-const toast = useToast();
 
 const signIn = async () => {
 	const { data, error } = await supabase.auth.signInWithPassword({

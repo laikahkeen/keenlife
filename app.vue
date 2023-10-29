@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-const user = useSupabaseUser();
+// const user = useSupabaseUser();
 // watchEffect(
 // 	() => {
 // 		if (!user.value) {

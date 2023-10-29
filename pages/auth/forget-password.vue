@@ -30,15 +30,15 @@
 </template>
 
 <script setup>
-import Joi from "joi";
+const toast = useToast();
+const supabase = useSupabaseClient();
 
+import Joi from "joi";
 const schema = Joi.object({
 	email: Joi.string()
 		.email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
 		.required(),
 });
-const toast = useToast();
-const supabase = useSupabaseClient();
 
 const state = ref({
 	email: undefined,

@@ -1,16 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import colors from "tailwindcss/colors";
 export default defineNuxtConfig({
-	devtools: { enabled: true },
+	devtools: { enabled: false },
 	modules: [
 		"@nuxt/ui",
 		"@nuxtjs/tailwindcss",
 		"@nuxtjs/color-mode",
 		"@pinia/nuxt",
-		"@pinia-plugin-persistedstate/nuxt",
 		"nuxt-icon",
 		"nuxt-headlessui",
 		"@nuxtjs/supabase",
+		"@vueuse/nuxt",
 	],
 	headlessui: { prefix: "H" },
 	app: {
@@ -28,9 +27,9 @@ export default defineNuxtConfig({
 	supabase: {
 		redirect: false,
 		redirectOptions: {
-			login: "/auth/login",
-			callback: "/auth/confirm",
-			exclude: ["/auth", "/"],
+			login: "/auth",
+			callback: "/",
+			exclude: [],
 		},
 	},
 });
