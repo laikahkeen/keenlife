@@ -37,7 +37,7 @@
 			</div>
 		</div>
 	</header>
-	<main class="flex min-h-[calc(100vh-64px)] gap-4 px-4">
+	<main class="flex min-h-[calc(100vh-64px)]">
 		<slot></slot>
 	</main>
 </template>
