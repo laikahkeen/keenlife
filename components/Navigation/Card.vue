@@ -7,7 +7,7 @@
 			icon="i-heroicons-home"
 			to="/app"
 		/>
-		<UAccordion :items="items" multiple>
+		<UAccordion :items="items" multiple defaultOpen>
 			<template #default="{ item, open }">
 				<UButton variant="soft" class="mb-1">
 					<template #leading>

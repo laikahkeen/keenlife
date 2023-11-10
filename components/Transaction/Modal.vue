@@ -50,7 +50,7 @@
 						searchable-placeholder="Search an account..."
 						v-model="state.account"
 						placeholder="Select an account"
-						:options="options"
+						:options="account.list.map((x) => x.name)"
 					/>
 				</UFormGroup>
 				<UFormGroup
@@ -63,13 +63,32 @@
 						searchable-placeholder="Search a category..."
 						v-model="state.category"
 						placeholder="Select a category"
-						:options="options"
+						:options="category()"
 					/>
 				</UFormGroup>
 				<UFormGroup label="Name" name="name" size="md">
-					<UInput ref="name" v-model="state.name" placeholder="Name">
+					<UInput
+						ref="name"
+						v-model="state.name"
+						placeholder="Name"
+						@input="locateNameInput"
+					>
 					</UInput>
+					<UContextMenu
+						class="w-full"
+						v-model="hasSearchResult"
+						:virtualElement="virtualElement"
+					>
+						<UCommandPalette
+							:searchable="false"
+							:groups="[
+								{ key: 'searchResult', commands: searchResult },
+							]"
+							@update:model-value="onSelect"
+						/>
+					</UContextMenu>
 				</UFormGroup>
+
 				<UFormGroup label="Description" name="description" size="md">
 					<UInput
 						v-model="state.description"
@@ -141,6 +160,7 @@ const emit = defineEmits([
 	"update:isOpen",
 	"update:selectedItem",
 	"update:deleteItem",
+	"update:isDuplicating",
 ]);
 
 const isOpen = computed({
@@ -172,21 +192,22 @@ const handleDelete = () => {
 const handleDuplicate = () => {
 	selectedItem.value = null;
 };
-const options = [
-	"Wade Cooper",
-	"Arlene Mccoy",
-	"Devon Webb",
-	"Tom Cook",
-	"Tanya Fox",
-	"Hellen Schmidt",
-	"Caroline Schultz",
-	"Mason Heaney",
-	"Claudie Smitham",
-	"Emil Schaefer",
-	"Expense",
-	"Income",
-	"Transfer",
-];
+
+const expense = useExpenseStore();
+const income = useIncomeStore();
+const account = useAccountStore();
+
+const category = () => {
+	switch (state.value.type) {
+		case "Income":
+			return income.list.map((x) => x.name);
+		case "Expense":
+			return expense.list.map((x) => x.name);
+		case "Transfer":
+			return account.list.map((x) => x.name);
+	}
+};
+
 const items = [
 	{
 		label: "Income",
@@ -200,6 +221,9 @@ const items = [
 ];
 
 import Joi from "joi";
+import { useAccountStore } from "~/stores/account";
+import { useExpenseStore } from "~/stores/expense";
+import { useIncomeStore } from "~/stores/income";
 const schema = Joi.object({
 	type: Joi.string().required(),
 	account: Joi.string().required(),
@@ -256,9 +280,54 @@ const label = computed(
 
 const handleChange = (index) => {
 	state.value.type = items[index].label;
+	state.value.category = null;
 };
 
 const name = ref(null);
+
+const virtualElement = ref({ getBoundingClientRect: () => ({}) });
+const searchResult = computed(() => {
+	if (!state.value.name) {
+		return [];
+	}
+
+	const exactMatch = transaction.list.filter(
+		(x) => String(x.name).toLowerCase() === state.value.name.toLowerCase(),
+	);
+
+	if (exactMatch.length >= 1) {
+		return [];
+	}
+
+	return transaction.list
+		.filter((x) =>
+			String(x.name)
+				.toLowerCase()
+				.includes(state.value.name.toLowerCase()),
+		)
+		.map((z) => {
+			return { id: z.id, label: z.name };
+		});
+});
+
+const hasSearchResult = computed(() => searchResult.value.length > 0);
+
+const locateNameInput = () => {
+	const placeholder = name.value.input;
+	const top = placeholder.getBoundingClientRect().bottom;
+	const left = placeholder.getBoundingClientRect().left;
+
+	virtualElement.value.getBoundingClientRect = () => ({
+		height: 0,
+		width: 0,
+		top,
+		left,
+	});
+};
+
+const onSelect = (option) => {
+	state.value.name = option.label;
+};
 
 import { useTransactionStore } from "~/stores/transaction";
 const transaction = useTransactionStore();

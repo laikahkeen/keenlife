@@ -1,6 +1,20 @@
 <template>
 	<UCard class="overflow-y-auto">
-		<UTable :rows="transaction.list" :columns="columns" v-model="selected">
+		<div
+			class="flex justify-between border-b border-gray-200 px-3 py-3.5 dark:border-gray-700"
+		>
+			<UInput v-model="q" placeholder="Filter transaction..." />
+			<div class="flex gap-4">
+				<CSVImportButton />
+				<CSVExportButton :data="transaction.list" />
+			</div>
+		</div>
+		<UTable
+			:rows="filteredRows"
+			:columns="columns"
+			v-model="selected"
+			@select="select"
+		>
 			<template #empty-state>
 				<div
 					class="flex flex-col items-center justify-center gap-3 py-6"
@@ -69,6 +83,20 @@
 import { useTransactionStore } from "~/stores/transaction";
 const transaction = useTransactionStore();
 
+const q = ref("");
+
+const filteredRows = computed(() => {
+	if (!q.value) {
+		return transaction.list;
+	}
+
+	return transaction.list.filter((x) => {
+		return Object.values(x).some((y) => {
+			return String(y).toLowerCase().includes(q.value.toLowerCase());
+		});
+	});
+});
+
 const columns = [
 	{
 		key: "id",
@@ -110,6 +138,15 @@ const columns = [
 	},
 ];
 const selected = ref([]);
+
+const select = (row) => {
+	const index = selected.value.findIndex((x) => x.id === row.id);
+	if (index === -1) {
+		selected.value.push(row);
+	} else {
+		selected.value.splice(index, 1);
+	}
+};
 
 const isItemModelOpen = ref(false);
 const selectedItem = ref(null);
