@@ -19,20 +19,16 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@google-cloud/documentai": "^8.1.0",
     "@nuxt/ui": "^2.9.0",
-    "@nuxtjs/supabase": "^1.1.2",
     "@pinia/nuxt": "^0.4.11",
     "@popperjs/core": "^2.11.8",
-    "@vueuse/integrations": "^10.5.0",
     "@vueuse/nuxt": "^10.5.0",
-    "change-case": "^5.1.2",
     "joi": "^17.11.0",
     "localforage": "^1.10.0",
-    "nuxt-headlessui": "^1.1.4",
     "nuxt-icon": "^0.5.0",
     "papaparse": "^5.4.1",
     "pinia": "^2.1.6",
-    "supabase": "^1.100.1",
     "v-calendar": "^3.1.2"
   }
 }

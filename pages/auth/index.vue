@@ -106,7 +106,7 @@
 
 <script setup>
 const toast = useToast();
-const supabase = useSupabaseClient();
+// const supabase = useSupabaseClient();
 
 import Joi from "joi";
 const schema = Joi.object({
@@ -125,23 +125,23 @@ const isSigningIn = ref(true);
 const isRevealed = ref(false);
 
 const signIn = async () => {
-	const { data, error } = await supabase.auth.signInWithPassword({
-		email: state.value.email,
-		password: state.value.password,
-	});
-	console.log(data);
-	if (error) {
-		toast.add({
-			title: "Invalid login credentials!",
-			description: `Email does not match with the given password!`,
-		});
-		console.log(error);
-	} else {
-		toast.add({
-			title: "Signed In!",
-			description: `${state.value.email} signed in successfully!`,
-		});
-	}
+	// const { data, error } = await supabase.auth.signInWithPassword({
+	// 	email: state.value.email,
+	// 	password: state.value.password,
+	// });
+	// console.log(data);
+	// if (error) {
+	// 	toast.add({
+	// 		title: "Invalid login credentials!",
+	// 		description: `Email does not match with the given password!`,
+	// 	});
+	// 	console.log(error);
+	// } else {
+	// 	toast.add({
+	// 		title: "Signed In!",
+	// 		description: `${state.value.email} signed in successfully!`,
+	// 	});
+	// }
 };
 
 const signUp = async () => {

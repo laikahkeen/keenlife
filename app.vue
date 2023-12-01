@@ -5,14 +5,4 @@
 	<UNotifications />
 </template>
 
-<script setup>
-// const user = useSupabaseUser();
-// watchEffect(
-// 	() => {
-// 		if (!user.value) {
-// 			return navigateTo("/auth");
-// 		}
-// 	},
-// 	{ immediate: true },
-// );
-</script>
+<script setup></script>

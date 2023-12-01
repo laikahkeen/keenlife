@@ -9,12 +9,7 @@
 				<CSVExportButton :data="transaction.list" />
 			</div>
 		</div>
-		<UTable
-			:rows="filteredRows"
-			:columns="columns"
-			v-model="selected"
-			@select="select"
-		>
+		<UTable :rows="filteredRows" :columns="columns" v-model="selected">
 			<template #empty-state>
 				<div
 					class="flex flex-col items-center justify-center gap-3 py-6"
@@ -26,10 +21,6 @@
 					/>
 				</div>
 			</template>
-			<template
-				#date-header
-				:sort="{ field: 'date', direction: 'asc' }"
-			/>
 			<template #action-header>
 				<UDropdown :items="groupActions(selected)">
 					<UButton
@@ -121,6 +112,11 @@ const columns = [
 	{
 		key: "account",
 		label: "Account",
+		sortable: true,
+	},
+	{
+		key: "name",
+		label: "Name",
 		sortable: true,
 	},
 	{

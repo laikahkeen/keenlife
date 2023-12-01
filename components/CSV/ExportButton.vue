@@ -14,7 +14,7 @@
 				<div>
 					<UButton
 						icon="i-heroicons-document-arrow-down-solid"
-						label="sample CSV"
+						label="Export CSV"
 						@click="exportCSV"
 					/>
 				</div>

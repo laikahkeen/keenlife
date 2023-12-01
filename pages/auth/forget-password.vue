@@ -31,7 +31,7 @@
 
 <script setup>
 const toast = useToast();
-const supabase = useSupabaseClient();
+// const supabase = useSupabaseClient();
 
 import Joi from "joi";
 const schema = Joi.object({
@@ -45,19 +45,19 @@ const state = ref({
 });
 
 const sendResetEmail = async () => {
-	const { data, error } = await supabase.auth.resetPasswordForEmail(
-		state.value.email,
-		{ redirectTo: `${process.env.SITE_URL}/update-password` },
-	);
-	if (error) {
-		console.log(error);
-	} else {
-		console.log(data);
-		toast.add({
-			title: "Reset email sent!",
-			description:
-				"If you registered using your email and password, you will receive a password reset email.",
-		});
-	}
+	// const { data, error } = await supabase.auth.resetPasswordForEmail(
+	// 	state.value.email,
+	// 	{ redirectTo: `${process.env.SITE_URL}/update-password` },
+	// );
+	// if (error) {
+	// 	console.log(error);
+	// } else {
+	// 	console.log(data);
+	// 	toast.add({
+	// 		title: "Reset email sent!",
+	// 		description:
+	// 			"If you registered using your email and password, you will receive a password reset email.",
+	// 	});
+	// }
 };
 </script>

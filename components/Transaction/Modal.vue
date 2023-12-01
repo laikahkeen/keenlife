@@ -26,6 +26,16 @@
 				:state="state"
 				@submit="handleSubmit"
 			>
+				<label for="transaction_file"
+					><p>Upload your file here.</p></label
+				>
+				<input
+					type="file"
+					id="image_uploads"
+					name="image_uploads"
+					class="file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold"
+					@change="storeFile"
+				/>
 				<UPopover :popper="{ placement: 'bottom-start' }">
 					<UButton
 						icon="i-heroicons-calendar-days-20-solid"
@@ -252,6 +262,10 @@ watch(isOpen, () => {
 	if (isOpen.value) {
 		if (selectedItem.value) {
 			state.value = { ...selectedItem.value };
+			console.log(
+				"🚀 ~ file: Modal.vue:255 ~ watch ~ selectedItem.value:",
+				selectedItem.value,
+			);
 			selected.value = items.findIndex(
 				(x) => x.label === selectedItem.value.type,
 			);
@@ -335,9 +349,17 @@ const transaction = useTransactionStore();
 const handleSubmit = (e) => {
 	if (selectedItem.value) {
 		transaction.updateItem(selectedItem.value.id, state.value);
+		console.log(
+			"🚀 ~ file: Modal.vue:338 ~ handleSubmit ~ state.value:",
+			state.value,
+		);
 		handleClose();
 	} else {
 		transaction.createItem(state.value);
+		console.log(
+			"🚀 ~ file: Modal.vue:342 ~ handleSubmit ~ state.value:",
+			state.value,
+		);
 		if (e.submitter.id == "save") {
 			handleClose();
 		} else {

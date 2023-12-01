@@ -17,7 +17,7 @@ import "v-calendar/dist/style.css";
 
 const props = defineProps({
 	modelValue: {
-		type: Date,
+		type: String,
 		default: null,
 	},
 });
@@ -31,7 +31,7 @@ const isDark = computed(() => colorMode.value === "dark");
 const date = computed({
 	get: () => props.modelValue,
 	set: (value) => {
-		emit("update:model-value", value);
+		emit("update:model-value", value.toISOString());
 		emit("close");
 	},
 });

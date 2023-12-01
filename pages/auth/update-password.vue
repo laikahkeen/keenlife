@@ -67,8 +67,8 @@
 
 <script setup>
 const toast = useToast();
-const supabase = useSupabaseClient();
-const user = useSupabaseUser();
+// const supabase = useSupabaseClient();
+// const user = useSupabaseUser();
 
 import Joi from "joi";
 const schema = Joi.object({
@@ -84,17 +84,17 @@ const state = ref({
 const isRevealed = ref(false);
 
 const resetPassword = async () => {
-	const { data, error } = await supabase.auth.updateUser({
-		password: state.value.password,
-	});
-	if (error) {
-		console.log(error);
-	} else {
-		console.log(data);
-		toast.add({
-			title: "Password updated!",
-			description: "Your password has been updated successfully!",
-		});
-	}
+	// const { data, error } = await supabase.auth.updateUser({
+	// 	password: state.value.password,
+	// });
+	// if (error) {
+	// 	console.log(error);
+	// } else {
+	// 	console.log(data);
+	// 	toast.add({
+	// 		title: "Password updated!",
+	// 		description: "Your password has been updated successfully!",
+	// 	});
+	// }
 };
 </script>

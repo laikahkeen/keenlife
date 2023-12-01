@@ -16,12 +16,12 @@
 					<span class="truncate">{{ item.label }}</span>
 					<template #trailing>
 						<div class="ms-auto flex gap-1">
-							<UButton
+							<UIcon
 								variant="ghost"
 								class="h-7 w-7 transform transition-transform duration-200"
 								:class="[open && 'rotate-90']"
 								square
-								icon="i-heroicons-chevron-right-20-solid"
+								name="i-heroicons-chevron-right-20-solid"
 							/>
 						</div>
 					</template>
@@ -36,58 +36,25 @@
 				>
 					<template #trailing>
 						<div class="ms-auto flex">
-							<UButton
+							<UIcon
 								variant="ghost"
 								class="h-5 w-5 p-0"
 								square
-								icon="i-heroicons-plus-small-20-solid"
+								name="i-heroicons-plus-small-20-solid"
 							/>
 						</div>
 					</template>
 				</UButton>
-				<template v-for="x of selectedStore(item.label)?.list">
-					<UButton variant="ghost" color="gray" class="mb-1 w-full">
-						<span class="truncate">{{ x.name }}</span>
-						<template #trailing>
-							<div class="ms-auto flex gap-1">
-								<UDropdown
-									:items="
-										actions({ type: item.label, item: x })
-									"
-									:popper="{ placement: 'bottom' }"
-								>
-									<UButton
-										variant="ghost"
-										color="gray"
-										class="h-5 w-5 p-0 opacity-50 hover:opacity-100"
-										square
-										icon="i-heroicons-ellipsis-horizontal-20-solid"
-									/>
-								</UDropdown>
-							</div>
-						</template>
-					</UButton>
-				</template>
+				<NavigationItem
+					v-for="x of selectedStore(item.label)?.list"
+					:item="item"
+					:x="x"
+					@openModal="handleOpenModal"
+				></NavigationItem>
 			</template>
 		</UAccordion>
-		<AccountModal
-			v-if="selectedType == 'Account'"
-			:isOpen="isOpen"
-			:selectedType="selectedType"
-			:selectedItem="selectedItem"
-			:selectedAction="selectedAction"
-			@close="handleCloseModal"
-		/>
-		<ExpenseModal
-			v-if="selectedType == 'Expense'"
-			:isOpen="isOpen"
-			:selectedType="selectedType"
-			:selectedItem="selectedItem"
-			:selectedAction="selectedAction"
-			@close="handleCloseModal"
-		/>
-		<IncomeModal
-			v-if="selectedType == 'Income'"
+		<NavigationModal
+			:store="selectedStore(selectedType)"
 			:isOpen="isOpen"
 			:selectedType="selectedType"
 			:selectedItem="selectedItem"
@@ -104,6 +71,8 @@ import { useIncomeStore } from "~/stores/income";
 const income = useIncomeStore();
 import { useAccountStore } from "~/stores/account";
 const account = useAccountStore();
+import { useLabelStore } from "~/stores/label";
+const label = useLabelStore();
 const selectedStore = (type) => {
 	switch (type) {
 		case "Expense":
@@ -112,30 +81,41 @@ const selectedStore = (type) => {
 			return income;
 		case "Account":
 			return account;
+		case "Label":
+			return label;
 	}
 };
 const isOpen = ref();
 const selectedType = ref();
 const selectedAction = ref();
 const selectedItem = ref();
+
 const handleOpenModal = (type, action, item) => {
+	console.log(
+		"🚀 ~ file: Card.vue:110 ~ handleOpenModal ~ type, action, item:",
+		type,
+		action,
+		item,
+	);
 	isOpen.value = true;
 	selectedType.value = type;
 	selectedAction.value = action;
 	if (item) {
 		selectedItem.value = item;
 	}
-	console.log(selectedType.value, selectedAction.value, selectedItem.value);
 };
 const handleCloseModal = () => {
 	isOpen.value = false;
 	selectedType.value = undefined;
 	selectedAction.value = undefined;
 	selectedItem.value = undefined;
-	console.log(selectedType.value, selectedAction.value, selectedItem.value);
 };
 
 const items = [
+	{
+		label: "Account",
+		icon: "uil:wallet",
+	},
 	{
 		label: "Income",
 		icon: "uil:money-withdraw",
@@ -145,35 +125,8 @@ const items = [
 		icon: "uil:money-insert",
 	},
 	{
-		label: "Account",
-		icon: "uil:wallet",
+		label: "Label",
+		icon: "uil:label-alt",
 	},
 ];
-
-const actions = ({ type, item }) => {
-	return [
-		[
-			{
-				label: "Edit",
-				icon: "i-heroicons-pencil-square-20-solid",
-				click: () => handleOpenModal(type, "update", item),
-			},
-			{
-				label: "Duplicate",
-				icon: "i-heroicons-document-duplicate-20-solid",
-				click: () => {
-					const { id, ...duplicatedItem } = item;
-					handleOpenModal(type, "create", duplicatedItem);
-				},
-			},
-		],
-		[
-			{
-				label: "Delete",
-				icon: "i-heroicons-trash-20-solid",
-				click: () => handleOpenModal(type, "delete", item),
-			},
-		],
-	];
-};
 </script>

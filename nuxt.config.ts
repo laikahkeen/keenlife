@@ -6,8 +6,6 @@ export default defineNuxtConfig({
 		"@nuxtjs/color-mode",
 		"@pinia/nuxt",
 		"nuxt-icon",
-		"nuxt-headlessui",
-		"@nuxtjs/supabase",
 		"@vueuse/nuxt",
 	],
 	headlessui: { prefix: "H" },
@@ -21,14 +19,6 @@ export default defineNuxtConfig({
 				{ rel: "stylesheet", href: "https://rsms.me/inter/inter.css" },
 				{ rel: "preconnect", href: "https://rsms.me/" },
 			],
-		},
-	},
-	supabase: {
-		redirect: false,
-		redirectOptions: {
-			login: "/auth",
-			callback: "/",
-			exclude: [],
 		},
 	},
 	devtools: {
